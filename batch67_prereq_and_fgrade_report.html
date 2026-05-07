@@ -1,0 +1,280 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.tabs{display:flex;gap:4px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.5rem}
+.tab{padding:7px 14px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--color-text-secondary);border-bottom:2px solid transparent;border-radius:6px 6px 0 0}
+.tab.active{color:var(--color-text-primary);border-bottom:2px solid #185FA5;font-weight:500}
+.panel{display:none}.panel.active{display:block}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:1.5rem}
+.m{background:var(--color-background-secondary);border-radius:8px;padding:12px 14px}
+.m-label{font-size:11px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.m-val{font-size:22px;font-weight:500}
+.m.red .m-val{color:#A32D2D}.m.amber .m-val{color:#854F0B}.m.ok .m-val{color:#3B6D11}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:8px 10px;text-align:left;font-size:11px;font-weight:500;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:.04em}
+td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+tr:hover td{background:var(--color-background-secondary)}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.b-red{background:#FCEBEB;color:#A32D2D}
+.b-amber{background:#FAEEDA;color:#854F0B}
+.b-green{background:#EAF3DE;color:#3B6D11}
+.b-blue{background:#E6F1FB;color:#185FA5}
+.b-gray{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.card-title{font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+.course-cell{display:flex;flex-direction:column;gap:3px}
+.course-row{display:flex;align-items:center;gap:6px;font-size:12px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:12px;color:var(--color-text-secondary)}
+.legend span{display:flex;align-items:center;gap:5px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.search-bar{width:100%;margin-bottom:1rem;font-size:13px}
+.prereq-table-wrap{overflow-x:auto}
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Batch 67 prerequisite and F-grade eligibility report for Summer 2026 registration</h2>
+
+<div style="margin-bottom:1rem">
+  <p style="font-size:16px;font-weight:500;color:var(--color-text-primary)">Batch 67 — Prerequisite & F-Grade Report</p>
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-top:2px">Summer 2026 Registration Eligibility · CSE226, CSE311, CSE312, CSE313, CSE314</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="sw('overview',this)">Overview</button>
+  <button class="tab" onclick="sw('prereq',this)">Prerequisite Check</button>
+  <button class="tab" onclick="sw('fgrade',this)">F-Grade Students</button>
+  <button class="tab" onclick="sw('eligible',this)">Eligible Students</button>
+</div>
+
+<div id="p-overview" class="panel active">
+  <div class="metrics">
+    <div class="m"><div class="m-label">Total students</div><div class="m-val">63</div></div>
+    <div class="m red"><div class="m-label">Prereq issues</div><div class="m-val">14</div></div>
+    <div class="m red"><div class="m-label">Has F grade (prereq)</div><div class="m-val">9</div></div>
+    <div class="m amber"><div class="m-label">Prereq not taken</div><div class="m-val">8</div></div>
+    <div class="m amber"><div class="m-label">I grade (incomplete)</div><div class="m-val">3</div></div>
+    <div class="m ok"><div class="m-label">Fully eligible</div><div class="m-val">49</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prerequisite map — Batch 67</div>
+    <table>
+      <thead><tr><th>Course</th><th>Title</th><th>Prerequisite needed</th><th>Credits</th></tr></thead>
+      <tbody>
+        <tr><td><code>CSE226</code></td><td>Numerical Methods</td><td><code>MAT211</code> Engineering Mathematics</td><td>3</td></tr>
+        <tr><td><code>CSE311</code></td><td>Database Management System</td><td><code>CSE221</code> Object Oriented Programming</td><td>3</td></tr>
+        <tr><td><code>CSE312</code></td><td>DBMS Lab</td><td><code>CSE222</code> OOP Lab</td><td>1.5</td></tr>
+        <tr><td><code>CSE313</code></td><td>Compiler Design</td><td><code>CSE228</code> (required)</td><td>3</td></tr>
+        <tr><td><code>CSE314</code></td><td>Compiler Design Lab</td><td><code>CSE114</code> Programming Lab</td><td>1.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Issue summary by prerequisite course</div>
+    <table>
+      <thead><tr><th>Prerequisite</th><th>Students with F (never passed)</th><th>Students who never took it</th><th>I grade (incomplete)</th></tr></thead>
+      <tbody>
+        <tr><td><code>MAT211</code></td><td>3 students</td><td>5 students</td><td>1 student</td></tr>
+        <tr><td><code>CSE221</code></td><td>5 students</td><td>4 students</td><td>2 students</td></tr>
+        <tr><td><code>CSE222</code></td><td>0 students</td><td>5 students</td><td>1 student</td></tr>
+        <tr><td><code>CSE228</code></td><td>3 students</td><td>4 students</td><td>0 students</td></tr>
+        <tr><td><code>CSE114</code></td><td>1 student</td><td>0 students</td><td>0 students</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="p-prereq" class="panel">
+  <div class="legend">
+    <span><span class="dot" style="background:#A32D2D"></span>F grade — never passed (BLOCKED)</span>
+    <span><span class="dot" style="background:#854F0B"></span>Not taken yet</span>
+    <span><span class="dot" style="background:#6B6B6B"></span>I grade — incomplete</span>
+    <span><span class="dot" style="background:#3B6D11"></span>Passed — eligible</span>
+  </div>
+  <input class="search-bar" type="text" placeholder="Search student name or ID…" oninput="filterPrereq(this.value)" id="prereq-search">
+  <div class="prereq-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>CSE226<br><small>needs MAT211</small></th>
+        <th>CSE311<br><small>needs CSE221</small></th>
+        <th>CSE312<br><small>needs CSE222</small></th>
+        <th>CSE313<br><small>needs CSE228</small></th>
+        <th>CSE314<br><small>needs CSE114</small></th>
+        <th>Can register</th>
+      </tr>
+    </thead>
+    <tbody id="prereq-body"></tbody>
+  </table>
+  </div>
+</div>
+
+<div id="p-fgrade" class="panel">
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem">Students who attempted a prerequisite course but received F grade and have <strong>never passed</strong> it. These students <strong>cannot register</strong> for the dependent Batch 67 course until the prerequisite is cleared.</p>
+  <table>
+    <thead><tr><th>#</th><th>Student ID</th><th>Name</th><th>Failed Prereq</th><th>Blocks Course</th><th>Semester(s) Failed</th><th>Retake needed</th></tr></thead>
+    <tbody id="fgrade-body"></tbody>
+  </table>
+</div>
+
+<div id="p-eligible" class="panel">
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem">These 49 students have cleared all prerequisites they attempted and can register for all applicable Batch 67 courses.</p>
+  <table>
+    <thead><tr><th>#</th><th>Student ID</th><th>Name</th><th>All prereqs</th></tr></thead>
+    <tbody id="eligible-body"></tbody>
+  </table>
+</div>
+</div>
+
+<script>
+const STUDENTS = [
+  {id:"242-15-316",name:"Mst. Jerin Binta Jaman",MAT211:"NOT_TAKEN",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"NOT_TAKEN",CSE114:"FAILED_F",CSE114_sems:["Fall 2024:F"]},
+  {id:"242-15-317",name:"Nusrat Jahan Mona",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-318",name:"Sabiha Israt Mahi",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-319",name:"Mollah Ishtiaq Ahmed Amim",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-320",name:"Moumita Reya Mondol",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-321",name:"Smita Tethi Hembrom",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-322",name:"Samiya Akter",MAT211:"PASSED",CSE221:"FAILED_F",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED",CSE221_sems:["Fall 2025:F"]},
+  {id:"242-15-323",name:"Samiul Hoque Iram",MAT211:"NOT_TAKEN",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"NOT_TAKEN",CSE114:"PASSED"},
+  {id:"242-15-324",name:"Maimona Islam",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-325",name:"Md. Tahsin Rahman",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-326",name:"Md. Nahid Hasan Emon",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-327",name:"Sakib Hasan Heemel",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-328",name:"Mst. Alfa Yesmin",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-329",name:"Md. Naim Mahomudul Islam",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-330",name:"Md. Tanjimul Islam",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-331",name:"Towhid Omar Rupok",MAT211:"PASSED",CSE221:"FAILED_F",CSE222:"NOT_TAKEN",CSE228:"PASSED",CSE114:"PASSED",CSE221_sems:["Fall 2025:F","Spring 2026:I"]},
+  {id:"242-15-332",name:"Afsana Akter Tusa",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-333",name:"Sharia Nawshin",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-334",name:"Fairuz Homaira",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-335",name:"Pronway Prosoon Mitra",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-336",name:"Md. Nur E Alam Siddique",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-337",name:"Md. Rashed Al Deepto",MAT211:"NOT_TAKEN",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"NOT_TAKEN",CSE114:"OTHER",CSE114_sems:["Fall 2024:I"]},
+  {id:"242-15-338",name:"Meftahul Jannat Mim",MAT211:"PASSED",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-339",name:"Farjana Akter Prity",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-340",name:"Sourav Kumar Das Bishal",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-341",name:"Jinat Farzana Bristy",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-342",name:"Sumaiya Tabassum Saiba",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-343",name:"Rohit Saha Prapto",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-344",name:"Afif Hossain",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-345",name:"M. M. Tariqur Rahman Rafi",MAT211:"PASSED",CSE221:"OTHER",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED",CSE221_sems:["Fall 2025:I"]},
+  {id:"242-15-346",name:"Md. Nuruzzaman",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-347",name:"Maruf Hossain",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-348",name:"Dristy Saha",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-349",name:"Mst. Tamanna Khatun",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-350",name:"Mir Samiul Haque",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-351",name:"Fatema Jannat",MAT211:"PASSED",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"NOT_TAKEN",CSE114:"PASSED"},
+  {id:"242-15-352",name:"Labanya Biswas",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-353",name:"Md. Shafiqul Islam Sifat",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-354",name:"Md. Moktadir Hossain",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-355",name:"Md. Iftekhar Alam Asif",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-356",name:"Zidne Hasan",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-357",name:"Tanvir Rahman Shawon",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-358",name:"Md. Sami",MAT211:"PASSED",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"FAILED_F",CSE114:"PASSED",CSE228_sems:["Spring 2026:F"]},
+  {id:"242-15-359",name:"Subrina Bintee Zaman Jebin",MAT211:"OTHER",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED",MAT211_sems:["Summer 2025:I"]},
+  {id:"242-15-360",name:"Mashrufa Binte Nazrul",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-361",name:"Md. Fahim Shariar",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-362",name:"Rakibul Islam",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-363",name:"Mushfiqur Rahman Towsif",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-364",name:"Nusrat Jahan Jui",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-365",name:"Tasmia Binte Alam",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-366",name:"S. M. Nadim Ahomed",MAT211:"NOT_TAKEN",CSE221:"FAILED_F",CSE222:"OTHER",CSE228:"FAILED_F",CSE114:"PASSED",CSE221_sems:["Fall 2025:F"],CSE222_sems:["Fall 2025:I"],CSE228_sems:["Spring 2026:F"]},
+  {id:"242-15-367",name:"S. M. Udoy Hasan",MAT211:"FAILED_F",CSE221:"FAILED_F",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED",MAT211_sems:["Summer 2025:F"],CSE221_sems:["Fall 2025:F","Spring 2026:F"]},
+  {id:"242-15-368",name:"Tanjiur Rahman Twha",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-369",name:"Susmita Sarker",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-370",name:"Md. Rokebul Islam Akash",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-371",name:"Tania Akter",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-372",name:"Junayed Ahmed",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-373",name:"Ayesha Siddika Asha",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-374",name:"Imran Hasan",MAT211:"FAILED_F",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"FAILED_F",CSE114:"PASSED",MAT211_sems:["Summer 2025:F"],CSE228_sems:["Spring 2026:F"]},
+  {id:"242-15-375",name:"Md. Shehzad Ahsan",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-376",name:"Tasnia Tabassum Nabila",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-377",name:"Rahul Sarkar Shawon",MAT211:"PASSED",CSE221:"PASSED",CSE222:"PASSED",CSE228:"PASSED",CSE114:"PASSED"},
+  {id:"242-15-378",name:"Md. Minnatul Islam",MAT211:"NOT_TAKEN",CSE221:"NOT_TAKEN",CSE222:"NOT_TAKEN",CSE228:"NOT_TAKEN",CSE114:"PASSED"},
+];
+
+const PREREQ_MAP = {CSE226:'MAT211',CSE311:'CSE221',CSE312:'CSE222',CSE313:'CSE228',CSE314:'CSE114'};
+const PREREQ_KEYS = ['MAT211','CSE221','CSE222','CSE228','CSE114'];
+
+function cellBadge(status, sems){
+  const semsStr = sems ? `<br><span style="font-size:10px;color:var(--color-text-tertiary)">${sems.join(', ')}</span>` : '';
+  if(status==='PASSED') return `<span class="badge b-green">✓ Passed</span>`;
+  if(status==='FAILED_F') return `<span class="badge b-red">✗ F Grade</span>${semsStr}`;
+  if(status==='NOT_TAKEN') return `<span class="badge b-amber">Not taken</span>`;
+  if(status==='OTHER') return `<span class="badge b-gray">I (incomplete)</span>${semsStr}`;
+  return `<span class="badge b-gray">${status}</span>`;
+}
+
+function isBlocked(s){
+  return PREREQ_KEYS.some(k=>s[k]==='FAILED_F'||s[k]==='NOT_TAKEN'||s[k]==='OTHER');
+}
+
+function renderPrereq(arr){
+  document.getElementById('prereq-body').innerHTML = arr.map(s=>{
+    const blocked = isBlocked(s);
+    return `<tr>
+      <td style="font-family:var(--font-mono);font-size:12px">${s.id}</td>
+      <td>${s.name}${blocked?` <span class="badge b-red" style="font-size:10px">Issues</span>`:` <span class="badge b-green" style="font-size:10px">OK</span>`}</td>
+      <td>${cellBadge(s.MAT211,s.MAT211_sems)}</td>
+      <td>${cellBadge(s.CSE221,s.CSE221_sems)}</td>
+      <td>${cellBadge(s.CSE222,s.CSE222_sems)}</td>
+      <td>${cellBadge(s.CSE228,s.CSE228_sems)}</td>
+      <td>${cellBadge(s.CSE114,s.CSE114_sems)}</td>
+      <td>${blocked?`<span class="badge b-red">Blocked</span>`:`<span class="badge b-green">All clear</span>`}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterPrereq(q){
+  const fil = STUDENTS.filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.id.includes(q));
+  renderPrereq(fil);
+}
+
+function renderFGrade(){
+  const rows = [];
+  let n=1;
+  STUDENTS.forEach(s=>{
+    PREREQ_KEYS.forEach(prereq=>{
+      if(s[prereq]==='FAILED_F'){
+        const sems = s[prereq+'_sems']||[];
+        const blockedCourse = Object.entries(PREREQ_MAP).find(([c,p])=>p===prereq)?.[0]||'';
+        rows.push(`<tr>
+          <td style="color:var(--color-text-tertiary);font-size:12px">${n++}</td>
+          <td style="font-family:var(--font-mono);font-size:12px">${s.id}</td>
+          <td>${s.name}</td>
+          <td><span class="badge b-red">${prereq}</span></td>
+          <td><code>${blockedCourse}</code></td>
+          <td style="font-size:12px;color:#A32D2D">${sems.join('<br>')}</td>
+          <td><span class="badge b-amber">Must retake ${prereq}</span></td>
+        </tr>`);
+      }
+    });
+  });
+  document.getElementById('fgrade-body').innerHTML = rows.join('');
+}
+
+function renderEligible(){
+  const elig = STUDENTS.filter(s=>!isBlocked(s));
+  document.getElementById('eligible-body').innerHTML = elig.map((s,i)=>`<tr>
+    <td style="color:var(--color-text-tertiary);font-size:12px">${i+1}</td>
+    <td style="font-family:var(--font-mono);font-size:12px">${s.id}</td>
+    <td>${s.name}</td>
+    <td><span class="badge b-green">All 5 prerequisites passed</span></td>
+  </tr>`).join('');
+}
+
+function sw(id, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('p-'+id).classList.add('active');
+}
+
+renderPrereq(STUDENTS);
+renderFGrade();
+renderEligible();
+</script>
